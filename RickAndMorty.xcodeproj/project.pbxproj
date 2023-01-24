@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B2DD29B2980497400C54345 /* RMImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2DD29A2980497400C54345 /* RMImageLoader.swift */; };
 		0B891E662975485600B65F72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B891E652975485600B65F72 /* AppDelegate.swift */; };
 		0B891E682975485600B65F72 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B891E672975485600B65F72 /* SceneDelegate.swift */; };
 		0B891E6A2975485600B65F72 /* RMTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B891E692975485600B65F72 /* RMTabBarController.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B2DD29A2980497400C54345 /* RMImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMImageLoader.swift; sourceTree = "<group>"; };
 		0B891E622975485600B65F72 /* RickAndMorty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMorty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B891E652975485600B65F72 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B891E672975485600B65F72 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 		0B891E7D297549F500B65F72 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				0B2DD29A2980497400C54345 /* RMImageLoader.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				0B891E6A2975485600B65F72 /* RMTabBarController.swift in Sources */,
 				0BC6B84329794A5E0017EDD7 /* RMCharacterCollectionViewCell.swift in Sources */,
 				0B891E8C29754B7600B65F72 /* RMEpisodeViewController.swift in Sources */,
+				0B2DD29B2980497400C54345 /* RMImageLoader.swift in Sources */,
 				0B891E662975485600B65F72 /* AppDelegate.swift in Sources */,
 				0B891E682975485600B65F72 /* SceneDelegate.swift in Sources */,
 				0B891E8F29754B8E00B65F72 /* RMSettingsViewController.swift in Sources */,
