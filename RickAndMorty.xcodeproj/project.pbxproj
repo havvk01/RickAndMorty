@@ -97,7 +97,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0B0892482982B8DF00696B13 /* CharacterDetails */ = {
+		0B0892482982B8DF00696B13 /* CharacterDetail */ = {
 			isa = PBXGroup;
 			children = (
 				0BC6B849297B124A0017EDD7 /* RMCharacterDetailView.swift */,
@@ -105,7 +105,7 @@
 				0B08924C2982B98500696B13 /* RMCharacterInfoCollectionViewCell.swift */,
 				0B08924E2982B99300696B13 /* RMCharacterEpisodeCollectionViewCell.swift */,
 			);
-			path = CharacterDetails;
+			path = CharacterDetail;
 			sourceTree = "<group>";
 		};
 		0B0892492982B8F500696B13 /* Character */ = {
@@ -180,7 +180,7 @@
 		0B891E7B297549E600B65F72 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0B0892482982B8DF00696B13 /* CharacterDetails */,
+				0B0892482982B8DF00696B13 /* CharacterDetail */,
 				0B0892492982B8F500696B13 /* Character */,
 				0BC6B84D297D902C0017EDD7 /* RMFooterLoadingCollectionReusableView.swift */,
 			);
