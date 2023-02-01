@@ -16,7 +16,7 @@ final class RMRequest {
     }
     
     /// Desired endpoint
-    private let endpoint: RMEndPoint
+    let endpoint: RMEndPoint
     
     
     /// Path components for API, if any
