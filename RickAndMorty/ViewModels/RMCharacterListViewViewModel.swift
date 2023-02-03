@@ -116,7 +116,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         return cellViewModels.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterCollectionViewCell.cellIdetnifier,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterCollectionViewCell.cellIdentifier,
                                                             for: indexPath) as? RMCharacterCollectionViewCell
         else {
             fatalError("Unsupported cell")
