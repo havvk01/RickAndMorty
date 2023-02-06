@@ -31,7 +31,7 @@ final class RMEpisodeDetailViewController: UIViewController, RMEpisodeDetailView
         super.viewDidLoad()
         view.addSubview(detailView)
         addConstraints()
-        title = "Episodes"
+        title = "Episode"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShare))
         
         viewModel.delegate = self
