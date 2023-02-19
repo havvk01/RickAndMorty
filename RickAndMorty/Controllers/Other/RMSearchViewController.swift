@@ -18,9 +18,9 @@ final class RMSearchViewController: UIViewController {
     /// Configuration for search session
     struct Config {
         enum `Type` {
-            case character
-            case episode
-            case location
+            case character // name | status | gender
+            case episode // name
+            case location // name | type
             
             var title: String {
                 switch self {
@@ -46,6 +46,7 @@ final class RMSearchViewController: UIViewController {
         let viewModel = RMSearchViewViewModel(config: config)
         self.viewModel = viewModel
         self.searchView = RMSearchView(frame: .zero, viewModel: viewModel)
+        print("hello")
         super.init(nibName: nil, bundle: nil)
     }
     
