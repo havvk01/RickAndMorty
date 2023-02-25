@@ -23,8 +23,6 @@ final class RMSearchView: UIView {
     
     private let noResultsView = RMNoSearchResultView()
     
-    // No results view
-    
     // Results collection view
     
     // MARK: - Init
@@ -39,6 +37,10 @@ final class RMSearchView: UIView {
         
         searchInputView.configure(with: RMSearchInputViewViewModel(type: viewModel.config.type))
         searchInputView.delegate = self
+        
+        viewModel.registerOptionChangeBlock { tuple in
+            // tuple: Option | NewValue
+        }
     }
     required init?(coder: NSCoder) {
         fatalError()

@@ -37,7 +37,6 @@ final class RMSearchViewController: UIViewController {
     }
     
     private let viewModel: RMSearchViewViewModel
-    
     private let searchView: RMSearchView
     
     // MARK: - Init
@@ -93,8 +92,10 @@ final class RMSearchViewController: UIViewController {
 
 extension RMSearchViewController: RMSearchViewDelegate {
     func rmSearchView(_ searchView: RMSearchView, diSelectOption option: RMSearchInputViewViewModel.DynamicOption) {
-        let vc = RMSearchOptionPickerViewController(option: option) { selection in
-            print("Did select \(selection)")
+        let vc = RMSearchOptionPickerViewController(option: option) { [weak self] selection in
+            DispatchQueue.main.async {
+                self?.viewModel.set(value: selection, for: option)
+            }
         }
         vc.sheetPresentationController?.detents = [.medium()]
         vc.sheetPresentationController?.prefersGrabberVisible = true
