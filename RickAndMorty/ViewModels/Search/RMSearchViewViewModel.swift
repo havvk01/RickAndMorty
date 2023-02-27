@@ -15,9 +15,12 @@ import Foundation
 final class RMSearchViewViewModel {
     let config: RMSearchViewController.Config
     
+    private var optionMap: [RMSearchInputViewViewModel.DynamicOption: String] = [:]
+    
+    private var searchtext = ""
+    
     private var optionMapUpdateBlock: (((RMSearchInputViewViewModel.DynamicOption, String)) -> Void)?
     
-    private var optionMap: [RMSearchInputViewViewModel.DynamicOption: String] = [:]
     
     // MARK: - Init
     
@@ -26,6 +29,16 @@ final class RMSearchViewViewModel {
     }
     
     // MARK: - Public
+    
+    public func executeSearch() {
+        // Create Request based on filters
+        // Send API Call
+        // Notify view of results, no results? or error
+    }
+    
+    public func set(query text: String) {
+        self.searchtext = text
+    }
     
     public func set(value: String, for option: RMSearchInputViewViewModel.DynamicOption) {
         optionMap[option] = value
