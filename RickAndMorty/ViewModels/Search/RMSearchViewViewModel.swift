@@ -31,48 +31,39 @@ final class RMSearchViewViewModel {
     // MARK: - Public
     
     public func executeSearch() {
-        // Create Request based on filters
+        var queryParams: [URLQueryItem] = []
         switch config.type {
         case .character:
             searchtext = "Rick"
-            
-            var request = RMRequest(
-                endpoint: .character,
-                queryParameters: optionMap.enumerated().compactMap({ _, element in
-                    let key: RMSearchInputViewViewModel.DynamicOption = element.key
-                    let value: String = element.value
-                    return URLQueryItem(name: key.queryArgument, value: value)
-                })
-            )
-            
-            var urlString = "https://rickandmortyapi.com/api/character/"
-            urlString += "?name=\(searchtext)"
-
-            
-            guard let url = URL(string: urlString) else {
-                return
-            }
-            
-            guard let request = RMRequest(url: url) else {
-                return
-            }
-            
-            RMService.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { result in
-                switch result {
-                case .success(let model):
-                    print("Search results found \(model.results.count)")
-                case .failure(let error):
-                    break
-                }
-            }
-            
+            queryParams.append(URLQueryItem(name: "name", value: searchtext))
         case .episode:
-            break
+            queryParams.append(URLQueryItem(name: "name", value: searchtext))
         case .location:
-            break
+            queryParams.append(URLQueryItem(name: "name", value: searchtext))
         }
         
-        // Send API Call
+        // Add options
+        queryParams.append(URLQueryItem(name: "name", value: searchtext))
+        queryParams.append(contentsOf: optionMap.enumerated().compactMap({ _, element in
+            let key: RMSearchInputViewViewModel.DynamicOption = element.key
+            let value: String = element.value
+            return URLQueryItem(name: key.queryArgument, value: value)
+        }))
+        
+        let request = RMRequest(
+            endpoint: config.type.endpoint,
+            queryParameters: queryParams
+        )
+        
+        RMService.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { result in
+            switch result {
+            case .success(let model):
+                print("Search results found \(model.results.count)")
+            case .failure:
+                break
+            }
+        }
+        
         // Notify view of results, no results? or error
     }
     
