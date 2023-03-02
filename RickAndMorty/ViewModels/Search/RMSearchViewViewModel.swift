@@ -7,20 +7,16 @@
 
 import Foundation
 
-// Responsibilities
-// - show search results
-// - show no results view
-// - kick off api request
-
 final class RMSearchViewViewModel {
     let config: RMSearchViewController.Config
     
     private var optionMap: [RMSearchInputViewViewModel.DynamicOption: String] = [:]
     
-    private var searchtext = ""
+    private var searchText = ""
     
     private var optionMapUpdateBlock: (((RMSearchInputViewViewModel.DynamicOption, String)) -> Void)?
     
+    private var searchResultHandler: (() -> Void)?
     
     // MARK: - Init
     
@@ -30,20 +26,20 @@ final class RMSearchViewViewModel {
     
     // MARK: - Public
     
+    public func registerSearchResultHandler(_ block: @escaping () -> Void) {
+        self.searchResultHandler = block
+    }
+    
     public func executeSearch() {
-        var queryParams: [URLQueryItem] = []
-        switch config.type {
-        case .character:
-            searchtext = "Rick"
-            queryParams.append(URLQueryItem(name: "name", value: searchtext))
-        case .episode:
-            queryParams.append(URLQueryItem(name: "name", value: searchtext))
-        case .location:
-            queryParams.append(URLQueryItem(name: "name", value: searchtext))
-        }
+        // Test search text
+        searchText = "Rick"
+        
+        // Build arguments
+        var queryParams: [URLQueryItem] = [
+            URLQueryItem(name: "name", value: searchText)
+        ]
         
         // Add options
-        queryParams.append(URLQueryItem(name: "name", value: searchtext))
         queryParams.append(contentsOf: optionMap.enumerated().compactMap({ _, element in
             let key: RMSearchInputViewViewModel.DynamicOption = element.key
             let value: String = element.value
@@ -55,7 +51,10 @@ final class RMSearchViewViewModel {
             queryParameters: queryParams
         )
         
+        print(request.url?.absoluteString)
+        
         RMService.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { result in
+            // Notify view of results, no results? or error
             switch result {
             case .success(let model):
                 print("Search results found \(model.results.count)")
@@ -63,12 +62,10 @@ final class RMSearchViewViewModel {
                 break
             }
         }
-        
-        // Notify view of results, no results? or error
     }
     
     public func set(query text: String) {
-        self.searchtext = text
+        self.searchText = text
     }
     
     public func set(value: String, for option: RMSearchInputViewViewModel.DynamicOption) {
