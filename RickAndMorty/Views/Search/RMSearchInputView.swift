@@ -9,8 +9,10 @@ import UIKit
 
 protocol RMSearchInputViewDelegate: AnyObject {
     func rmSearchInputView(_ inputView: RMSearchInputView, didSelectOption option: RMSearchInputViewViewModel.DynamicOption)
+    func rmSearchInputView(_ inputView: RMSearchInputView, didChangeSearchText text: String?)
 }
 
+///  View for top part of search screen with search bar
 final class RMSearchInputView: UIView {
     
     weak var delegate: RMSearchInputViewDelegate?
@@ -24,7 +26,6 @@ final class RMSearchInputView: UIView {
     
     private var viewModel: RMSearchInputViewViewModel? {
         didSet {
-            print("0")
             guard let viewModel = viewModel, viewModel.hasDynamicOptions else {
                 return
             }
