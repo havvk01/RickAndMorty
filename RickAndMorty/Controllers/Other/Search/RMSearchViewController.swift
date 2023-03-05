@@ -29,6 +29,14 @@ final class RMSearchViewController: UIViewController {
                 }
             }
             
+            var searchResultResponseType: Codable.Type {
+                switch self {
+                case .character: return RMGetAllLocationsResponse.self
+                case .episode: return RMGetAllLocationsResponse.self
+                case .location: return RMGetAllLocationsResponse.self
+                }
+            }
+            
             var title: String {
                 switch self {
                 case .character:

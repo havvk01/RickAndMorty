@@ -50,14 +50,14 @@ final class RMSearchViewViewModel {
             queryParameters: queryParams
         )
         
-        print(request.url?.absoluteString as Any)
-        
-        RMService.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { result in
+        RMService.shared.execute(request, expecting: config.type.searchResultResponseType.self) { result in
             // Notify view of results, no results? or error
             switch result {
             case .success(let model):
+                // Episodes, Characters: CollectionView; localtable: table
                 print("Search results found \(model.results.count)")
             case .failure:
+                print("Failed to get results")
                 break
             }
         }
