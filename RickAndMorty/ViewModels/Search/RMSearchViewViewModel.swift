@@ -50,16 +50,41 @@ final class RMSearchViewViewModel {
             queryParameters: queryParams
         )
         
-        RMService.shared.execute(request, expecting: config.type.searchResultResponseType.self) { result in
-            // Notify view of results, no results? or error
-            switch result {
-            case .success(let model):
-                // Episodes, Characters: CollectionView; localtable: table
-                print("Search results found \(model.results.count)")
-            case .failure:
-                print("Failed to get results")
-                break
+                switch config.type.endpoint {
+                case .character:
+                    makeSearchAPICall(RMGetAllCharactersResponse.self, request: request)
+                case .episode:
+                    makeSearchAPICall(RMGetAllEpisodesResponse.self, request: request)
+                case .location:
+                    makeSearchAPICall(RMGetAllLocationsResponse.self, request: request)
+                }
+    }
+        private func makeSearchAPICall<T: Codable>(_ type: T.Type, request: RMRequest) {
+            RMService.shared.execute(request, expecting: type) { result in
+                // Notify view of results, no results? or error
+                
+                switch result {
+                case .success(let model):
+                    self.processSearchResults(model: model)
+                case .failure:
+                    print("Failed to get results")
+                    break
+                }
             }
+        }
+    
+    private func processSearchResults(model: Codable) {
+        if let characterResults = model as? RMGetAllCharactersResponse {
+            print("Results: \(characterResults.results)")
+        }
+        else if let episodesResults = model as? RMGetAllEpisodesResponse {
+            print("Results: \(episodesResults.results)")
+        }
+        else if let locationsResults = model as? RMGetAllLocationsResponse {
+            print("Results: \(locationsResults.results)")
+        }
+        else {
+            // Error: No results view
         }
     }
     
