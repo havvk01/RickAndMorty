@@ -50,14 +50,14 @@ final class RMSearchViewViewModel {
             queryParameters: queryParams
         )
         
-                switch config.type.endpoint {
-                case .character:
-                    makeSearchAPICall(RMGetAllCharactersResponse.self, request: request)
-                case .episode:
-                    makeSearchAPICall(RMGetAllEpisodesResponse.self, request: request)
-                case .location:
-                    makeSearchAPICall(RMGetAllLocationsResponse.self, request: request)
-                }
+        switch config.type.endpoint {
+        case .character:
+            makeSearchAPICall(RMGetAllCharactersResponse.self, request: request)
+        case .episode:
+            makeSearchAPICall(RMGetAllEpisodesResponse.self, request: request)
+        case .location:
+            makeSearchAPICall(RMGetAllLocationsResponse.self, request: request)
+        }
     }
         private func makeSearchAPICall<T: Codable>(_ type: T.Type, request: RMRequest) {
             RMService.shared.execute(request, expecting: type) { result in
