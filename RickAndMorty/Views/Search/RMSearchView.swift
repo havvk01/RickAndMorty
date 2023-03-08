@@ -41,8 +41,8 @@ final class RMSearchView: UIView {
         viewModel.registerOptionChangeBlock { tuple in
             self.searchInputView.update(option: tuple.0, value: tuple.1)
         }
-        viewModel.registerSearchResultHandler {
-            
+        viewModel.registerSearchResultHandler { results in
+            print(results)
         }
     }
     

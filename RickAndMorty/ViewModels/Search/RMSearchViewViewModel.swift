@@ -16,7 +16,7 @@ final class RMSearchViewViewModel {
     
     private var optionMapUpdateBlock: (((RMSearchInputViewViewModel.DynamicOption, String)) -> Void)?
     
-    private var searchResultHandler: (() -> Void)?
+    private var searchResultHandler: ((RMSearchResultViewModel) -> Void)?
     
     // MARK: - Init
     
@@ -26,7 +26,7 @@ final class RMSearchViewViewModel {
     
     // MARK: - Public
     
-    public func registerSearchResultHandler(_ block: @escaping () -> Void) {
+    public func registerSearchResultHandler(_ block: @escaping (RMSearchResultViewModel) -> Void) {
         self.searchResultHandler = block
     }
     
@@ -74,17 +74,28 @@ final class RMSearchViewViewModel {
         }
     
     private func processSearchResults(model: Codable) {
+        var resultsVM: RMSearchResultViewModel?
         if let characterResults = model as? RMGetAllCharactersResponse {
-            print("Results: \(characterResults.results)")
+            resultsVM = .characters(characterResults.results.compactMap({
+                return RMCharacterCollectionViewCellViewModel(characterName: $0.name,
+                                                              characterStatus: $0.status,
+                                                              characterImageUrl: URL(string: $0.image))
+            }))
         }
         else if let episodesResults = model as? RMGetAllEpisodesResponse {
-            print("Results: \(episodesResults.results)")
+            resultsVM = .episodes(episodesResults.results.compactMap({
+                return RMCharacterEpisodeCollectionViewCellViewModel(episodeDataUrl: URL(string: $0.url))
+            }))
         }
         else if let locationsResults = model as? RMGetAllLocationsResponse {
-            print("Results: \(locationsResults.results)")
+            resultsVM = .locations(locationsResults.results.compactMap({
+                return RMLocationTableViewCellViewModel(location: $0)
+            }))
         }
-        else {
-            // Error: No results view
+        if let results = resultsVM {
+            self.searchResultHandler?(results)
+        } else {
+            // fallback error
         }
     }
     

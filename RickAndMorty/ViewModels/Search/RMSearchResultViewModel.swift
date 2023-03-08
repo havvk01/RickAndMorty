@@ -7,14 +7,8 @@
 
 import Foundation
 
-protocol RMSearchResultRepresentable {
-    associatedtype ResultType
-    
-    var results: [ResultType] { get }
-}
-
-struct RMSearchResultViewModel<T>: RMSearchResultRepresentable {
-    // test
-    typealias ResultType = T
-    var results: [ResultType]
+enum RMSearchResultViewModel {
+    case characters([RMCharacterCollectionViewCellViewModel])
+    case episodes([RMCharacterEpisodeCollectionViewCellViewModel])
+    case locations([RMLocationTableViewCellViewModel])
 }
