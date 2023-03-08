@@ -14,6 +14,7 @@ protocol RMSearchResultRepresentable {
 }
 
 struct RMSearchResultViewModel<T>: RMSearchResultRepresentable {
-    typealias ResultType = T 
+    // test
+    typealias ResultType = T
     var results: [ResultType]
 }
