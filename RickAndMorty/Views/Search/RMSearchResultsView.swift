@@ -45,6 +45,7 @@ final class RMSearchResultsView: UIView {
         
         switch viewModel {
         case . characters(let viewModels):
+            // Test #49
             setUpCollectionView()
         case . locations(let viewModels):
             setUpTableView()
