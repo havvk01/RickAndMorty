@@ -45,7 +45,6 @@ final class RMSearchResultsView: UIView {
         
         switch viewModel {
         case . characters(let viewModels):
-            // Test #49
             setUpCollectionView()
         case . locations(let viewModels):
             setUpTableView()
@@ -60,6 +59,8 @@ final class RMSearchResultsView: UIView {
     }
     
     private func setUpTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.isHidden = false
     }
     
