@@ -98,6 +98,7 @@ final class RMSearchViewController: UIViewController {
 // MARK - RMSearchViewDelegate
 
 extension RMSearchViewController: RMSearchViewDelegate {
+    
     func rmSearchView(_ searchView: RMSearchView, diSelectOption option: RMSearchInputViewViewModel.DynamicOption) {
         let vc = RMSearchOptionPickerViewController(option: option) { [weak self] selection in
             DispatchQueue.main.async {
@@ -109,5 +110,10 @@ extension RMSearchViewController: RMSearchViewDelegate {
         present(vc, animated: true)
     }
     
+    func rmSearchView(_ searchView: RMSearchView, diSelectLocation location: RMLocation) {
+        let vc = RMLocationDetailViewController(location: location)
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
 }

@@ -127,7 +127,7 @@ final class RMSearchViewViewModel {
         self.optionMapUpdateBlock = block
     }
     
-    public func locationSearchResult(at index: Int) -> RMLocation {
+    public func locationSearchResult(at index: Int) -> RMLocation? {
         guard let searchModel = searchResultModel as? RMGetAllLocationsResponse else {
             return nil
         }
