@@ -41,6 +41,8 @@ final class RMSearchView: UIView {
         searchInputView.delegate = self
         
         setUpHandlers(viewModel: viewModel)
+        
+        resultsView.delegate = self
     }
     
     
@@ -130,4 +132,12 @@ extension RMSearchView: RMSearchInputViewDelegate {
     func rmSearchInputViewDidtapSearchKeyboardButton(_ inputView: RMSearchInputView) {
         viewModel.executeSearch()
     }
+}
+
+extension RMSearchView: RMSearchResultsViewDelegate {
+    func rmSearchResultsView(_ resultsView: RMSearchResultsView, didTapLocationAt index: Int) {
+        print("location tapped")
+        guard let locationModel = viewModel.locationSearchResult(at: index);
+    }
+    
 }
