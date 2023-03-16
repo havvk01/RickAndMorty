@@ -136,13 +136,21 @@ extension RMLocationView: UIScrollViewDelegate {
                     self?.showLoadingIndicator()
                 }
                 viewModel.fetchAditionalLocations()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now()+3, execute: {
+                    print("Refreshing")
+                    
+                    self?.tableView.reloadData()
+                })
             }
             t.invalidate()
         }
     }
     
     private func showLoadingIndicator() {
-//        tableView.tableFooterView = RMTableLoadingFooterView()
+        let footer = RMTableLoadingFooterView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 100))
+        tableView.tableFooterView = footer
+        
     }
     
 }
