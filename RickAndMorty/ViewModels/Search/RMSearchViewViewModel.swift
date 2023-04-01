@@ -39,7 +39,9 @@ final class RMSearchViewViewModel {
     }
     
     public func executeSearch() {
-        print("Search text: \(searchText)")
+        guard !searchText.trimmingCharacters(in: .whitespaces).isEmpty else {
+            return
+        }
         
         // Build arguments
         var queryParams: [URLQueryItem] = [
