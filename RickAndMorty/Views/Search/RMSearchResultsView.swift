@@ -225,7 +225,11 @@ extension RMSearchResultsView: UIScrollViewDelegate {
                 DispatchQueue.main.async {
                     self?.showLoadingIndicator()
                 }
-//                viewModel.fetchAditionalLocations()
+                viewModel.fetchAditionalLocations { [weak self] in
+                    // Refresh Table
+                    self?.tableView.tableFooterView = nil
+                    self?.tableView.reloadData()
+                }
                 
             }
             t.invalidate()
