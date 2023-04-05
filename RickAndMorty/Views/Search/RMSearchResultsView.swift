@@ -46,7 +46,7 @@ final class RMSearchResultsView: UIView {
     }()
     
     /// TableView viewModels
-    private var locationsViewModels: [RMLocationTableViewCellViewModel] = []
+    private var locationCellViewModels: [RMLocationTableViewCellViewModel] = []
     
     /// CollectionView viewModels
     private var collectionViewCellViewModels: [any Hashable] = []
@@ -99,7 +99,7 @@ final class RMSearchResultsView: UIView {
         tableView.isHidden = false
         collectionView.isHidden = true
         
-        self.locationsViewModels = viewModels
+        self.locationCellViewModels = viewModels
         tableView.reloadData()
     }
     
@@ -130,7 +130,7 @@ final class RMSearchResultsView: UIView {
 extension RMSearchResultsView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locationsViewModels.count
+        return locationCellViewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -139,7 +139,7 @@ extension RMSearchResultsView: UITableViewDataSource, UITableViewDelegate {
             for: indexPath) as? RMLocationTableViewCell else {
             fatalError("Failed to dequeue RMLocationTableViewCell")
         }
-        cell.configure(with: locationsViewModels[indexPath.row])
+        cell.configure(with: locationCellViewModels[indexPath.row])
         return cell
     }
     
@@ -207,10 +207,25 @@ extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSou
     
 }
 
+// MARK: - ScrollViewDelegate
+
 extension RMSearchResultsView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !locationCellViewModels.isEmpty {
+            handleLocationPagination(scrollView: scrollView)
+        } else {
+            // CollectionView
+            handleCharacterOrEpisodePagination(scrollView: scrollView)
+        }
+    }
+    
+    private func handleCharacterOrEpisodePagination(scrollView: UIScrollView) {
+        
+    }
+    
+    private func handleLocationPagination(scrollView: UIScrollView) {
         guard let viewModel = viewModel,
-                !locationsViewModels.isEmpty,
+                !locationCellViewModels.isEmpty,
                 viewModel.shouldShowloadMoreIndicator,
               !viewModel.isLoadingMoreResults else {
             return
@@ -225,9 +240,10 @@ extension RMSearchResultsView: UIScrollViewDelegate {
                 DispatchQueue.main.async {
                     self?.showLoadingIndicator()
                 }
-                viewModel.fetchAditionalLocations { [weak self] in
+                viewModel.fetchAditionalLocations { [weak self] newResults in
                     // Refresh Table
                     self?.tableView.tableFooterView = nil
+                    self?.locationCellViewModels = newResults
                     self?.tableView.reloadData()
                 }
                 
