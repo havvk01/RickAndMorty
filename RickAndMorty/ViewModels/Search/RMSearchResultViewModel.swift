@@ -81,6 +81,9 @@ final class RMSearchResultViewModel {
     }
 
 }
+func fetchAditionalResults() {
+    
+}
 
 enum RMSearchResultType {
     case characters([RMCharacterCollectionViewCellViewModel])
