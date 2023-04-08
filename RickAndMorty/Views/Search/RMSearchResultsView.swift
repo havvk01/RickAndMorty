@@ -266,7 +266,7 @@ extension RMSearchResultsView: UIScrollViewDelegate {
                 }
                 
             }
-            t.invalidate()
+            t.invalidate() 
         }
     }
     
