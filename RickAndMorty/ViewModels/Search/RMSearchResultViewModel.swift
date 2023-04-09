@@ -97,7 +97,7 @@ final class RMSearchResultViewModel {
         }
         
         switch results {
-        case .characters(let currentResults):
+        case .characters(let existingResults):
             RMService.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { [weak self] result in
                 guard let strongSelf = self else {
                     return
@@ -108,20 +108,15 @@ final class RMSearchResultViewModel {
                     let info  = responseModel.info
                     strongSelf.next = info.next // Capture new pagination url
 
-                    let additionalLoactions = moreResults.compactMap({
-                        return RMLocationTableViewCellViewModel(location: $0)
+                    let additionalResults = moreResults.compactMap({
+                        return RMCharacterCollectionViewCellViewModel(characterName: $0.name,
+                                                                      characterStatus: $0.status,
+                                                                      characterImageUrl: URL(string: $0.image))
                     })
-                    var newResults: [RMLocationTableViewCellViewModel] = []
+                    var newResults: [RMCharacterCollectionViewCellViewModel] = []
                     
-                    
-                    switch strongSelf.results {
-                    case .locations(let existingResults):
-                        newResults = existingResults + additionalLoactions
-                        strongSelf.results = .locations(newResults)
-                        break
-                    case .characters, .episodes:
-                        break
-                    }
+                    newResults = existingResults + additionalResults
+                    strongSelf.results = .characters(newResults)
                     
                     DispatchQueue.main.async {
                         strongSelf.isLoadingMoreResults = false
@@ -135,7 +130,7 @@ final class RMSearchResultViewModel {
                     self?.isLoadingMoreResults = false
                 }
             }
-        case .episodes(let currentResults):
+        case .episodes(let existingResults):
             RMService.shared.execute(request, expecting: RMGetAllEpisodesResponse.self) { [weak self] result in
                 guard let strongSelf = self else {
                     return
@@ -146,20 +141,13 @@ final class RMSearchResultViewModel {
                     let info  = responseModel.info
                     strongSelf.next = info.next // Capture new pagination url
 
-                    let additionalLoactions = moreResults.compactMap({
-                        return RMLocationTableViewCellViewModel(location: $0)
+                    let additionalResults = moreResults.compactMap({
+                        return RMCharacterEpisodeCollectionViewCellViewModel(episodeDataUrl: URL(string: $0.url))
                     })
-                    var newResults: [RMLocationTableViewCellViewModel] = []
+                    var newResults: [RMCharacterEpisodeCollectionViewCellViewModel] = []
                     
-                    
-                    switch strongSelf.results {
-                    case .locations(let existingResults):
-                        newResults = existingResults + additionalLoactions
-                        strongSelf.results = .locations(newResults)
-                        break
-                    case .characters, .episodes:
-                        break
-                    }
+                    newResults = existingResults + additionalResults
+                    strongSelf.results = .episodes(newResults)
                     
                     DispatchQueue.main.async {
                         strongSelf.isLoadingMoreResults = false
@@ -173,7 +161,7 @@ final class RMSearchResultViewModel {
                     self?.isLoadingMoreResults = false
                 }
             }
-        case .locations
+        case .locations:
             // TableView case:
             break
         }
