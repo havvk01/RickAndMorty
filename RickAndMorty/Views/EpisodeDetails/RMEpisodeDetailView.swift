@@ -215,7 +215,7 @@ extension RMEpisodeDetailView {
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: .init(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(260)
+                heightDimension: .absolute(UIDevice.isiPhone ? 260 : 320)
             ),
             subitems: UIDevice.isiPhone ? [item, item] : [item, item, item, item]
         )
