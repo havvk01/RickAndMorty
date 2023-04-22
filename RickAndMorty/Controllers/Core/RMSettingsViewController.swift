@@ -10,7 +10,7 @@ import SwiftUI
 import UIKit
 
 /// Controller to show various app options and settings
-final class RMSettingsViewController: UIViewController {
+final class RMSettingsViewController: RMBaseViewController {
     
     private var settingsSwiftUIController: UIHostingController<RMSettingsView>?
     

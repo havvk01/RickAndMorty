@@ -8,13 +8,14 @@
 import UIKit
 
 /// Controller to show and search for Characters
-final class RMCharacterViewController: UIViewController, RMCharacterListViewDelegate {
+final class RMCharacterViewController: RMBaseViewController, RMCharacterListViewDelegate {
  
     private let characterListView = RMCharacterListView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        overrideUserInterfaceStyle = .dark
         title = "Characters"
         setUpView()
         addSearchButton()

@@ -12,6 +12,7 @@ final class RMTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .dark
         setUpTabs()
     }
     

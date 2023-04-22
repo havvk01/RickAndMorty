@@ -13,7 +13,7 @@ import UIKit
 // Searching / API call
 
 /// Configurable controller to serach
-final class RMSearchViewController: UIViewController {
+final class RMSearchViewController: RMBaseViewController {
     
     /// Configuration for search session
     struct Config {
